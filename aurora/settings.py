@@ -17,19 +17,20 @@ from oscar.defaults import *
 
 location = lambda x: os.path.join(
     os.path.dirname(os.path.realpath(__file__)), x)
+root_loc = lambda x: os.path.join(
+    os.path.dirname(os.path.dirname(os.path.realpath(__file__))), x)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '!()qrtm4a9&rh9&02nv#&=u7%f8x!veu027io3jgpph(t&u5%x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+THUMBNAIL_DEBUG=True
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
-
+from local_settings import DATABASES, SECRET_KEY
 
 # Application definition
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -84,13 +85,6 @@ WSGI_APPLICATION = 'aurora.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
@@ -111,13 +105,13 @@ TEMPLATE_DIRS = (
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-MEDIA_ROOT = location("binary/media")
-STATIC_ROOT = location('binary/static')
+MEDIA_ROOT = root_loc("binary/media")
+STATIC_ROOT = root_loc('binary/static')
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = (
-    location('static/'),
+    root_loc('static/'),
 )
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
